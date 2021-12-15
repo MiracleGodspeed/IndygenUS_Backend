@@ -38,6 +38,10 @@ namespace DataLayer.Dtos
     public class UserReportLinks
     {
         public string Link { get; set; }
+        public string Title { get; set; }
+        public string PreviewText { get; set; }
+        public string PreviewImage { get; set; }
+        public long QuestionSubOptionId { get; set; }
 
     }
 

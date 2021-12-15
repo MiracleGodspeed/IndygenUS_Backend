@@ -48,7 +48,8 @@ namespace BusinessLayer
                 using (AesManaged aes = new AesManaged())
                 {
                     encrypted = Encrypt(raw, aes.Key, aes.IV);
-                    
+                    var decrypted = Decrypt(encrypted, aes.Key, aes.IV);
+
                 }
                 return encrypted;
 
@@ -87,6 +88,8 @@ namespace BusinessLayer
             byte[] encrypted;
             using (AesManaged aes = new AesManaged())
             {
+                aes.Padding = PaddingMode.Zeros;
+
                 ICryptoTransform encryptor = aes.CreateEncryptor(Key, IV);
                 using (MemoryStream ms = new MemoryStream())
                 {
@@ -105,11 +108,14 @@ namespace BusinessLayer
             string plaintext = null;
             using (AesManaged aes = new AesManaged())
             {
+                aes.Padding = PaddingMode.Zeros;
+               // aes.BlockSize = 128;
                 ICryptoTransform decryptor = aes.CreateDecryptor(Key, IV);
                 using (MemoryStream ms = new MemoryStream(cipherText))
                 {
                     using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
                     {
+                        
                         using (StreamReader reader = new StreamReader(cs))
                             plaintext = reader.ReadToEnd();
                     }
@@ -117,6 +123,7 @@ namespace BusinessLayer
             }
             return plaintext;
         }
+
         //public static string DecryptAesManaged(byte[] encrypted)
         //{
         //    try

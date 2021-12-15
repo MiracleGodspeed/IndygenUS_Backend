@@ -12,10 +12,12 @@ namespace BusinessLayer.Interface
 
         Task<UserDto> AuthenticateUser(LoginDto dto, string injectkey);
         Task<UserDto> NewUser(RegisterDto loginDto);
-        //Task<long> PostUser(AddUserDto userDto);
-        //Task<bool> ChangePassword(ChangePasswordDto changePasswordDto);
-        //Task<GetUserProfileDto> GetUserProfile(long userId);
-        //Task<ResponseModel> ProfileUpdate(UpdateUserProfileDto dto);
-        //Task<IEnumerable<GetInstitutionUsersDto>> GetAllStudents();
+        Task<int> UpdateUserProfile(UpdateProfileDto dto, string userId);
+        Task<UpdateProfileDto> GetUserProfile(string userId);
+        Task<int> PostSecurityQuestions(string userId, List<BaseDto> dto);
+        Task<int> PostUserAgreement(string userId, int agreementType);
+        Task<IEnumerable<BaseDto>> GetUserComplianceType(string userId);
+
+
     }
 }

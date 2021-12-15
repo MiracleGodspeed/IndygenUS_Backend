@@ -11,7 +11,9 @@ namespace DataLayer.Model
         public string UserId { get; set; }
         public SecurityQuestion SecurityQuestion { get; set; }
         public int SecurityQuestionId { get; set; }
+       public string SecurityAnswer { get; set; }
         public bool Active { get; set; }
+
 
     }
 }

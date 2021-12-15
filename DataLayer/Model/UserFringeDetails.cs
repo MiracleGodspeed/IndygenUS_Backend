@@ -25,6 +25,17 @@ namespace DataLayer.Model
         public string ReferalPersonName { get; set; }
         public string Weight { get; set; }
         public string Height { get; set; }
+        public SexualOrientation SexualOrientation { get; set; }
+        public int? SexualOrientationId { get; set; }
+        public ResponseType MemberBlackCommunity { get; set; }
+        public int? MemberBlackCommunityId { get; set; }
+        public ResponseType ArmedForceVeteran { get; set; }
+        public int? ArmedForceVeteranId { get; set; }
+        public Region Region { get; set; }
+        public long? RegionId { get; set; }
+
+
+
 
 
 

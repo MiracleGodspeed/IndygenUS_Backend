@@ -40,5 +40,23 @@ namespace APIs.Controllers
         public async Task<IEnumerable<UserCategoryReportDto>> GetUserReport(string userId) => await _service.GetUserReport(userId);
         [HttpGet("UserReporyByCategory")]
         public async Task<IEnumerable<UserReportLinks>> GetUserReportLinks(long surveyCategoryId, string userId) => await _service.GetUserReportLinks(surveyCategoryId, userId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<BaseDto>> GetAncestry() => await _service.GetAncestry();
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<BaseDto>> GetGender() => await _service.GetGender();
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<BaseDto>> GetASecurityQuestions() => await _service.GetASecurityQuestions();
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<BaseDto>> GetSexualOrientation() => await _service.GetSexualOrientation();
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<BaseDto>> GetResponseType() => await _service.GetResponseType();
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<BaseDto>> GetNationality() => await _service.GetNationality();
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<BaseDto>> GetUserSurveyEntries(long surveySubCategoryId, string userId) => await _service.GetUserSurveyEntries(surveySubCategoryId, userId);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<BaseDto>> GetRegions() => await _service.GetRegions();
+        [HttpGet("UserEntryCategories")]
+        public async Task<IEnumerable<BaseDto>> GetUserSurveyOptionEntries(long surveySubCategoryId, string userId) => await _service.GetUserSurveyOptionEntries(surveySubCategoryId, userId);
     }
 }

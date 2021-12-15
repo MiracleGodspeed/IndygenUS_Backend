@@ -12,5 +12,6 @@ namespace DataLayer.Model
         public DateTime DateSubmitted { get; set; }
         public SurveySubCategory SurveySubCategory { get; set; }
         public long SurveySubCategoryId { get; set; }
+        //public bool Active { get; set; }
     }
 }

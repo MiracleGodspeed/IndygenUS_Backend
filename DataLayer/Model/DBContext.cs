@@ -42,6 +42,10 @@ namespace DataLayer.Model
         public DbSet<SurveySubCategory> SURVEY_SUB_CATEGORY { get; set; }
         public DbSet<Gender> GENDER { get; set; }
         public DbSet<Role> ROLE { get; set; }
+        public DbSet<ComplianceType> COMPLIANCE_TYPE { get; set; }
+        public DbSet<UserCompliance> USER_COMPLIANCE { get; set; }
+        public DbSet<SexualOrientation> SEXUAL_ORIENTATION { get; set; }
+        public DbSet<Region> REGION { get; set; }
 
 
 

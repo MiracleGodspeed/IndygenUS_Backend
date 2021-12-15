@@ -11,6 +11,7 @@ namespace DataLayer.Dtos
         public string Password { get; set; }
         public string RoleName { get; set; }
         public long PersonId { get; set; }
+        public long? RegionId { get; set; }
         public string UserId { get; set; }
         public string FullName { get; set; }
         public bool SecurityQuestion { get; set; }
@@ -30,5 +31,6 @@ namespace DataLayer.Dtos
         public string UserName { get; set; }
         public string Password { get; set; }
         public int NationalityId { get; set; }
+        public long RegionId { get; set; }
     }
 }

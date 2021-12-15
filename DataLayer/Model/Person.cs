@@ -8,16 +8,14 @@ namespace DataLayer.Model
     public class Person
     {
         public long Id { get; set; }
-        [MaxLength(100)]
         public string Firstname { get; set; }
-        [MaxLength(100)]
         public string Othername { get; set; }
-        [MaxLength(100)]
         public string Surname { get; set; }
         [MaxLength(50)]
-        public byte[] PhoneNo { get; set; }
+        public string PhoneNo { get; set; }
         [MaxLength(50)]
-        public byte[] Email { get; set; }
+        public string Email { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public bool Active { get; set; }
     }
 }

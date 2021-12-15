@@ -57,7 +57,7 @@ namespace BusinessLayer.Services
             try
             {
                 List<SurveyCategoryListDto> listDtos = new List<SurveyCategoryListDto>();
-                var cat = await _context.SURVEY_CATEGORY.Where(x => x.Active).ToListAsync();
+                var cat = await _context.SURVEY_CATEGORY.Where(x => x.Active).OrderBy(x => x.SortOrder).ToListAsync();
                 if(cat != null && cat.Count > 0)
                 {
                     foreach (var item in cat)
@@ -182,7 +182,7 @@ namespace BusinessLayer.Services
                         questionDto.SubCategoryId = questionStore.SurveySubCategoryId;
 
                         //Get Survey Question Options using the question ID
-                        var questionOptions = await _context.SURVEY_QUESTION_OPTIONS.Where(x => x.Active && x.SurveyQuestionsId == questionStore.Id).ToListAsync();
+                        var questionOptions = await _context.SURVEY_QUESTION_OPTIONS.Where(x => x.Active && x.SurveyQuestionsId == questionStore.Id).OrderBy(x => x.Name).ToListAsync();
                         if(questionOptions !=null && questionOptions.Count > 0)
                         {
                             foreach(var questionOptionStore in questionOptions)
@@ -198,6 +198,7 @@ namespace BusinessLayer.Services
                                     Name = f.Name,
                                     Id = f.Id
                                     })
+                                    .OrderBy(x => x.Name)
                                     .ToListAsync();
                                 if (questionOptions != null && questionOptions.Count > 0)
                                 {
@@ -213,7 +214,6 @@ namespace BusinessLayer.Services
                         questionDto.QuestionOptions = questionOptionList;
                         finalSurveyList.Add(questionDto);
                     }
-
 
                 }
                 return finalSurveyList;
@@ -231,8 +231,25 @@ namespace BusinessLayer.Services
             {
                 if(subOptionIds.Count > 0)
                 {
-                    foreach(long item in subOptionIds)
+                    var doesResponseExist = await _context.USER_SURVEY_RESPONSE.Where(x => x.SurveyQuestionSubOptions.SurveyQuestionOptions.SurveyQuestions.SurveySubCategoryId == surveySubCategoryId && x.UserId == userId)
+                        .Include(x => x.SurveyQuestionSubOptions)
+                        .ThenInclude(x => x.SurveyQuestionOptions)
+                        .ThenInclude(x => x.SurveyQuestions)
+                        .ToListAsync();
+
+                    if (doesResponseExist != null && doesResponseExist.Count > 0)
                     {
+                        foreach (var exist in doesResponseExist)
+                        {
+                            _context.Remove(exist);
+                            await _context.SaveChangesAsync();
+
+                        }
+                    }
+                    foreach (long item in subOptionIds)
+                    {
+                       // var doesResponseExist = await _context.USER_SURVEY_RESPONSE.Where(x => x.SurveyQuestionSubOptionsId == item && x.UserId == userId).FirstOrDefaultAsync();
+
                         UserSurveyResponse surveyResponse = new UserSurveyResponse()
                         {
                             SurveyQuestionSubOptionsId = item,
@@ -242,14 +259,25 @@ namespace BusinessLayer.Services
                         await _context.SaveChangesAsync();
                     }
 
-                    Submission submission = new Submission()
+                    var isSubmitted = await _context.USER_SURVEY_SUBMISSION.Where(x => x.UserId == userId && x.SurveySubCategoryId == surveySubCategoryId).FirstOrDefaultAsync();
+                    if(isSubmitted != null)
                     {
-                        UserId = userId,
-                        DateSubmitted = DateTime.Now,
-                        SurveySubCategoryId = surveySubCategoryId
-                    };
-                    _context.Add(submission);
-                    await _context.SaveChangesAsync();
+                        isSubmitted.DateSubmitted = DateTime.Now;
+                        _context.Update(isSubmitted);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        Submission submission = new Submission()
+                        {
+                            UserId = userId,
+                            DateSubmitted = DateTime.Now,
+                            SurveySubCategoryId = surveySubCategoryId
+                        };
+                        _context.Add(submission);
+                        await _context.SaveChangesAsync();
+                    }
+                    
                 }
                 await transaction.CommitAsync();
                 return true;
@@ -312,7 +340,11 @@ namespace BusinessLayer.Services
                         var getLinks = await _context.SURVEY_SELECTION_RESULT_LINKS.Where(x => x.SurveyQuestionSubOptionsId == item.SurveyQuestionSubOptionId)
                             .Select(f => new UserReportLinks()
                             {
-                                Link = f.VideoLink
+                                Link = f.VideoLink,
+                                Title = f.Title,
+                                PreviewText = f.PreviewText,
+                                PreviewImage = f.PreviewImage,
+                                QuestionSubOptionId = f.SurveyQuestionSubOptionsId
                             })
                             .ToListAsync();
                         resultLinks.AddRange(getLinks);
@@ -327,7 +359,105 @@ namespace BusinessLayer.Services
                 throw ex;
             }
         }
-        
+        public async Task<IEnumerable<BaseDto>> GetUserSurveyEntries(long surveySubCategoryId, string userId)
+        {
+            try
+            {
+                var getCategories = await _context.USER_SURVEY_RESPONSE.Where(x => x.UserId == userId && x.SurveyQuestionSubOptions.SurveyQuestionOptions.SurveyQuestions.SurveySubCategoryId == surveySubCategoryId)
+                   .Include(x => x.SurveyQuestionSubOptions)
+                   .ThenInclude(x => x.SurveyQuestionOptions)
+                   .ThenInclude(x => x.SurveyQuestions)
+                   .ThenInclude(x => x.SurveySubCategory)
+                   .ThenInclude(x => x.SurveyCategory)
+                   .Select(f => new BaseDto()
+                   {
+                       Id = f.SurveyQuestionSubOptionsId
+                   })
+                   .ToListAsync();
+
+                return getCategories;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<BaseDto>> GetUserSurveyOptionEntries(long surveySubCategoryId, string userId)
+        {
+            try
+            {
+                var getCategories = await _context.USER_SURVEY_RESPONSE.Where(x => x.UserId == userId && x.SurveyQuestionSubOptions.SurveyQuestionOptions.SurveyQuestions.SurveySubCategoryId == surveySubCategoryId)
+                   .Include(x => x.SurveyQuestionSubOptions)
+                   .ThenInclude(x => x.SurveyQuestionOptions)
+                   .ThenInclude(x => x.SurveyQuestions)
+                   .ThenInclude(x => x.SurveySubCategory)
+                   .ThenInclude(x => x.SurveyCategory)
+                   .Select(f => new BaseDto()
+                   {
+                       Id = f.SurveyQuestionSubOptions.SurveyQuestionOptions.Id
+                   })
+                   .ToListAsync();
+
+                return RemoveDuplicateGeneral(getCategories);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<bool> UpdateSurveyEntries(List<long> subOptionIds, string userId, long surveySubCategoryId)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                if (subOptionIds.Count > 0)
+                {
+                    var doesResponseExist = await _context.USER_SURVEY_RESPONSE.Where(x => x.SurveyQuestionSubOptions.SurveyQuestionOptions.SurveyQuestions.SurveySubCategoryId == surveySubCategoryId && x.UserId == userId)
+                        .Include(x => x.SurveyQuestionSubOptions)
+                        .ThenInclude(x=> x.SurveyQuestionOptions)
+                        .ThenInclude(x => x.SurveyQuestions)
+                        .ToListAsync();
+
+                    if(doesResponseExist != null && doesResponseExist.Count > 0)
+                    {
+                        foreach(var exist in doesResponseExist)
+                        {
+                            _context.Remove(exist);
+                            await _context.SaveChangesAsync();
+
+                        }
+                    }
+
+                    foreach (long item in subOptionIds)
+                    {
+
+                        UserSurveyResponse surveyResponse = new UserSurveyResponse()
+                        {
+                            SurveyQuestionSubOptionsId = item,
+                            UserId = userId
+                        };
+                        _context.Add(surveyResponse);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    Submission submission = new Submission()
+                    {
+                        UserId = userId,
+                        DateSubmitted = DateTime.Now,
+                        SurveySubCategoryId = surveySubCategoryId
+                    };
+                    _context.Add(submission);
+                    await _context.SaveChangesAsync();
+                }
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public List<UserCategoryReportDto> RemoveDuplicatesRecords(List<UserCategoryReportDto> items)
         {
             List<UserCategoryReportDto> returnList = new List<UserCategoryReportDto>();
@@ -341,5 +471,96 @@ namespace BusinessLayer.Services
             }
             return returnList;
         }
+
+        public List<BaseDto> RemoveDuplicateGeneral(List<BaseDto> items)
+        {
+            List<BaseDto> returnList = new List<BaseDto>();
+            foreach (var item in items)
+            {
+                var isDuplicate = returnList.Where(x => x.Id == item.Id).ToList();
+                if (isDuplicate == null || isDuplicate.Count <= 0)
+                {
+                    returnList.Add(item);
+                }
+            }
+            return returnList;
+        }
+
+        public async Task<IEnumerable<BaseDto>> GetAncestry()
+        {
+            return await _context.ANCESTRY_IDENTITY.Where(x => x.Active)
+                .Select(f => new BaseDto
+                {
+                    Name = f.Ancestry,
+                    Id = f.Id
+                })
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<BaseDto>> GetGender()
+        {
+            return await _context.GENDER.Where(x => x.Active)
+                .Select(f => new BaseDto
+                {
+                    Name = f.Name,
+                    Id = f.Id
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<BaseDto>> GetASecurityQuestions()
+        {
+            return await _context.SECURITY_QUESTIONS.Where(x => x.Active)
+                .Select(f => new BaseDto
+                {
+                    Name = f.Question,
+                    Id = f.Id
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<BaseDto>> GetSexualOrientation()
+        {
+            return await _context.SEXUAL_ORIENTATION.Where(x => x.Active)
+                .Select(f => new BaseDto
+                {
+                    Name = f.Name,
+                    Id = f.Id
+                })
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<BaseDto>> GetRegions()
+        {
+            return await _context.REGION.Where(x => x.Active)
+                .Select(f => new BaseDto
+                {
+                    Name = f.Name,
+                    Id = f.Id
+                })
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<BaseDto>> GetResponseType()
+        {
+            return await _context.RESPONSE_TYPE.Where(x => x.Active)
+                .Select(f => new BaseDto
+                {
+                    Name = f.Response,
+                    Id = f.Id
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<BaseDto>> GetNationality()
+        {
+            return await _context.NATIONALITY.Where(x => x.Active)
+                .Select(f => new BaseDto
+                {
+                    Name = f.Name,
+                    Id = f.Id
+                })
+                .ToListAsync();
+        }
+
+       
+
     }
 }

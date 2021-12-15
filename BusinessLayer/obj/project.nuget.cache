@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "92CMbjE3QEBq+kE/eLO/LZZm00UFgGOVwEOQw8JSlL3UmkWDueDlRQY0UUtFCnHaS7P7W0J288kHVQWfTaL6aA==",
+  "dgSpecHash": "8TLngi+Jl1F30r9YlpSXG7bX28j5KLFlvoCIb8OvBFQ91dD5b6n9E5ma/TmXfMJuJjFN57hamH9dhT3N8xf8gA==",
   "success": true,
-  "projectFilePath": "Z:\\Users\\godspeedmiracle\\Miracle\\IndegenUS-Back\\IndegenoUS-B\\BusinessLayer\\BusinessLayer.csproj",
+  "projectFilePath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\BusinessLayer\\BusinessLayer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\root\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

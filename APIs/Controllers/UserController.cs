@@ -33,6 +33,16 @@ namespace APIs.Controllers
         public async Task<UserDto> AuthenticateUser(LoginDto dto) => await _userService.AuthenticateUser(dto, key);
         [HttpPost("RegisterUser")]
         public async Task<UserDto> NewUser(RegisterDto loginDto) => await _userService.NewUser(loginDto);
+        [HttpPost("StampUseProfile")]
+        public async Task<int> UpdateUserProfile(UpdateProfileDto dto, string userId) => await _userService.UpdateUserProfile(dto, userId);
+        [HttpGet("StampUser")]
+        public async Task<UpdateProfileDto> GetUserProfile(string userId) => await _userService.GetUserProfile(userId);
+        [HttpPost("[action]")]
+        public async Task<int> PostSecurityQuestions(string userId, List<BaseDto> dto) => await _userService.PostSecurityQuestions(userId, dto);
+        [HttpPost("UserAgreementCompliance")]
+        public async Task<int> PostUserAgreement(string userId, int agreementType) => await _userService.PostUserAgreement(userId, agreementType);
+        [HttpGet("DetailsOfCompliance")]
+        public async Task<IEnumerable<BaseDto>> GetUserComplianceType(string userId) => await _userService.GetUserComplianceType(userId);
 
 
     }

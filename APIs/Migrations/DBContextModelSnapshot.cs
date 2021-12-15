@@ -38,6 +38,28 @@ namespace APIs.Migrations
                     b.ToTable("ANCESTRY_IDENTITY");
                 });
 
+            modelBuilder.Entity("DataLayer.Model.ComplianceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ComplianceText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("COMPLIANCE_TYPE");
+                });
+
             modelBuilder.Entity("DataLayer.Model.Gender", b =>
                 {
                     b.Property<long>("Id")
@@ -86,25 +108,25 @@ namespace APIs.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<byte[]>("Email")
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
                         .HasMaxLength(50)
-                        .HasColumnType("varbinary(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Firstname")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Othername")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("PhoneNo")
+                    b.Property<string>("PhoneNo")
                         .HasMaxLength(50)
-                        .HasColumnType("varbinary(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Surname")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -128,6 +150,24 @@ namespace APIs.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PLATFORM_DISCOVERY_TYPE");
+                });
+
+            modelBuilder.Entity("DataLayer.Model.Region", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("REGION");
                 });
 
             modelBuilder.Entity("DataLayer.Model.ResponseType", b =>
@@ -187,6 +227,25 @@ namespace APIs.Migrations
                     b.ToTable("SECURITY_QUESTIONS");
                 });
 
+            modelBuilder.Entity("DataLayer.Model.SexualOrientation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SEXUAL_ORIENTATION");
+                });
+
             modelBuilder.Entity("DataLayer.Model.Submission", b =>
                 {
                     b.Property<long>("Id")
@@ -228,6 +287,9 @@ namespace APIs.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<long?>("SortOrder")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -314,8 +376,17 @@ namespace APIs.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
+                    b.Property<string>("PreviewImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviewText")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("SurveyQuestionSubOptionsId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoLink")
                         .HasColumnType("nvarchar(max)");
@@ -407,6 +478,34 @@ namespace APIs.Migrations
                     b.ToTable("USER");
                 });
 
+            modelBuilder.Entity("DataLayer.Model.UserCompliance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ComplianceTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateEntered")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComplianceTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("USER_COMPLIANCE");
+                });
+
             modelBuilder.Entity("DataLayer.Model.UserFringeDetails", b =>
                 {
                     b.Property<long>("Id")
@@ -415,6 +514,9 @@ namespace APIs.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("AncestryIdentityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ArmedForceVeteranId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ClinicalTrialsId")
@@ -429,6 +531,9 @@ namespace APIs.Migrations
                     b.Property<bool>("IsTextMessageContact")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("MemberBlackCommunityId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("NationalityId")
                         .HasColumnType("int");
 
@@ -438,7 +543,13 @@ namespace APIs.Migrations
                     b.Property<string>("ReferalPersonName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long?>("RegionId")
+                        .HasColumnType("bigint");
+
                     b.Property<int?>("SalivaBloodSharingId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SexualOrientationId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -451,15 +562,23 @@ namespace APIs.Migrations
 
                     b.HasIndex("AncestryIdentityId");
 
+                    b.HasIndex("ArmedForceVeteranId");
+
                     b.HasIndex("ClinicalTrialsId");
 
                     b.HasIndex("GenderId");
+
+                    b.HasIndex("MemberBlackCommunityId");
 
                     b.HasIndex("NationalityId");
 
                     b.HasIndex("PlatformDiscoveryTypeId");
 
+                    b.HasIndex("RegionId");
+
                     b.HasIndex("SalivaBloodSharingId");
+
+                    b.HasIndex("SexualOrientationId");
 
                     b.HasIndex("UserId");
 
@@ -475,6 +594,9 @@ namespace APIs.Migrations
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
+
+                    b.Property<string>("SecurityAnswer")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SecurityQuestionId")
                         .HasColumnType("int");
@@ -605,11 +727,34 @@ namespace APIs.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("DataLayer.Model.UserCompliance", b =>
+                {
+                    b.HasOne("DataLayer.Model.ComplianceType", "ComplianceType")
+                        .WithMany()
+                        .HasForeignKey("ComplianceTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ComplianceType");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DataLayer.Model.UserFringeDetails", b =>
                 {
                     b.HasOne("DataLayer.Model.AncestryIdentity", "AncestryIdentity")
                         .WithMany()
                         .HasForeignKey("AncestryIdentityId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("DataLayer.Model.ResponseType", "ArmedForceVeteran")
+                        .WithMany()
+                        .HasForeignKey("ArmedForceVeteranId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DataLayer.Model.ResponseType", "ClinicalTrials")
@@ -622,6 +767,11 @@ namespace APIs.Migrations
                         .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("DataLayer.Model.ResponseType", "MemberBlackCommunity")
+                        .WithMany()
+                        .HasForeignKey("MemberBlackCommunityId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("DataLayer.Model.Nationality", "Nationality")
                         .WithMany()
                         .HasForeignKey("NationalityId")
@@ -632,9 +782,19 @@ namespace APIs.Migrations
                         .HasForeignKey("PlatformDiscoveryTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("DataLayer.Model.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("DataLayer.Model.ResponseType", "SalivaBloodSharing")
                         .WithMany()
                         .HasForeignKey("SalivaBloodSharingId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("DataLayer.Model.SexualOrientation", "SexualOrientation")
+                        .WithMany()
+                        .HasForeignKey("SexualOrientationId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("DataLayer.Model.User", "User")
@@ -644,15 +804,23 @@ namespace APIs.Migrations
 
                     b.Navigation("AncestryIdentity");
 
+                    b.Navigation("ArmedForceVeteran");
+
                     b.Navigation("ClinicalTrials");
 
                     b.Navigation("Gender");
+
+                    b.Navigation("MemberBlackCommunity");
 
                     b.Navigation("Nationality");
 
                     b.Navigation("PlatformDiscoveryType");
 
+                    b.Navigation("Region");
+
                     b.Navigation("SalivaBloodSharing");
+
+                    b.Navigation("SexualOrientation");
 
                     b.Navigation("User");
                 });
