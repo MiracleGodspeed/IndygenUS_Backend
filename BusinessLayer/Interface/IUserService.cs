@@ -17,6 +17,9 @@ namespace BusinessLayer.Interface
         Task<int> PostSecurityQuestions(string userId, List<BaseDto> dto);
         Task<int> PostUserAgreement(string userId, int agreementType);
         Task<IEnumerable<BaseDto>> GetUserComplianceType(string userId);
+        Task<int> ResetPassword(string email);
+        Task<int> ConfirmResetPassword(string email, string code, string password);
+        Task<int> ChangePassword(ChangePasswordDto dto);
 
 
     }

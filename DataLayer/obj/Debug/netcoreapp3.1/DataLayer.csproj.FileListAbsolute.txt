@@ -58,3 +58,15 @@ Z:\Users\godspeedmiracle\Miracle\__INDE_BACK__\IndygenUS_Backend\DataLayer\obj\D
 Z:\Users\godspeedmiracle\Miracle\__INDE_BACK__\IndygenUS_Backend\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.dll
 Z:\Users\godspeedmiracle\Miracle\__INDE_BACK__\IndygenUS_Backend\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.pdb
 Z:\Users\godspeedmiracle\Miracle\__INDE_BACK__\IndygenUS_Backend\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.genruntimeconfig.cache
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.deps.json
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.runtimeconfig.json
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.runtimeconfig.dev.json
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.dll
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.pdb
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.csprojAssemblyReference.cache
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.AssemblyInfoInputs.cache
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.AssemblyInfo.cs
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.csproj.CoreCompileInputs.cache
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.dll
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.pdb
+Z:\Users\godspeedmiracle\Miracle\WebEnd\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.genruntimeconfig.cache

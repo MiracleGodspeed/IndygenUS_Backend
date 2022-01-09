@@ -43,6 +43,12 @@ namespace APIs.Controllers
         public async Task<int> PostUserAgreement(string userId, int agreementType) => await _userService.PostUserAgreement(userId, agreementType);
         [HttpGet("DetailsOfCompliance")]
         public async Task<IEnumerable<BaseDto>> GetUserComplianceType(string userId) => await _userService.GetUserComplianceType(userId);
+        [HttpPost("PasswordReset")]
+        public async Task<int> ResetPassword(string email) => await _userService.ResetPassword(email);
+        [HttpPost("PasswordResetConfirmation")]
+        public async Task<int> ConfirmResetPassword(string email, string code, string password) => await _userService.ConfirmResetPassword(email, code, password);
+        [HttpPost("ChangeUserPassword")]
+        public async Task<int> ChangePassword(ChangePasswordDto dto) => await _userService.ChangePassword(dto);
 
 
     }

@@ -23,5 +23,7 @@ namespace BusinessLayer.Interface
         Task<IEnumerable<BaseDto>> GetUserSurveyEntries(long surveySubCategoryId, string userId);
         Task<IEnumerable<BaseDto>> GetRegions();
        Task<IEnumerable<BaseDto>> GetUserSurveyOptionEntries(long surveySubCategoryId, string userId);
+       Task<int> PostSurveyQuestion(SurveyQuestionDto dto, string userId);
+       Task<IEnumerable<SurveyQuestionDto>> GetSurveyQuestions();
     }
 }

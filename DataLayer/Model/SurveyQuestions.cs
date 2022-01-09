@@ -11,6 +11,7 @@ namespace DataLayer.Model
         public string Name { get; set; }
         public SurveySubCategory SurveySubCategory { get; set; }
         public long SurveySubCategoryId { get; set; }
+        public string InputType { get; set; }
         public bool Active { get; set; }
     }
 }

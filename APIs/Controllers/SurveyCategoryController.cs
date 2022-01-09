@@ -58,5 +58,9 @@ namespace APIs.Controllers
         public async Task<IEnumerable<BaseDto>> GetRegions() => await _service.GetRegions();
         [HttpGet("UserEntryCategories")]
         public async Task<IEnumerable<BaseDto>> GetUserSurveyOptionEntries(long surveySubCategoryId, string userId) => await _service.GetUserSurveyOptionEntries(surveySubCategoryId, userId);
+        [HttpPost("NewSurveyQuestion")]
+        public async Task<int> PostSurveyQuestion(SurveyQuestionDto dto, string userId) => await _service.PostSurveyQuestion(dto, userId);
+        [HttpGet("FetchSurveyQuestions")]
+        public async Task<IEnumerable<SurveyQuestionDto>> GetSurveyQuestions() => await _service.GetSurveyQuestions();
     }
 }

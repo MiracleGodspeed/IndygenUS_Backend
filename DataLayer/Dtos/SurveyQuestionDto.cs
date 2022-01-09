@@ -8,6 +8,8 @@ namespace DataLayer.Dtos
     {
         public string Question { get; set; }
         public long SubCategoryId { get; set; }
+        public string SubCategoryName { get; set; }
+        public string InputType { get; set; }
         public List<QuestionOptionDto> QuestionOptions { get; set; }
     }
     public class QuestionOptionDto

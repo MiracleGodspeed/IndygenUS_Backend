@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8SYmf77HDk68o/JxxwQ4Pd42g770CPVoGKmirE0LsC0S9lvYQEmor8jBVxx3dEUNWof2cWgTcFQ37VDfjDpcpw==",
+  "dgSpecHash": "K4grJzQj31APM6SMAXOIMxzBaHkKb86ayj0ls1OHhxf+pvduxBRqeBoUsJJ66qkYNDlcWUIbcSG93QT0+EKaSw==",
   "success": true,
-  "projectFilePath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\APIs\\APIs.csproj",
+  "projectFilePath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\APIs\\APIs.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\root\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\root\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

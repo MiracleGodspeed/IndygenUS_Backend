@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\APIs\\APIs.csproj": {}
+    "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\APIs\\APIs.csproj": {}
   },
   "projects": {
-    "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\APIs\\APIs.csproj": {
+    "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\APIs\\APIs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\APIs\\APIs.csproj",
+        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\APIs\\APIs.csproj",
         "projectName": "APIs",
-        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\APIs\\APIs.csproj",
+        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\APIs\\APIs.csproj",
         "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\APIs\\obj\\",
+        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\APIs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -31,11 +31,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\BusinessLayer\\BusinessLayer.csproj": {
-                "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\BusinessLayer\\BusinessLayer.csproj"
+              "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\BusinessLayer\\BusinessLayer.csproj": {
+                "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\BusinessLayer\\BusinessLayer.csproj"
               },
-              "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj"
+              "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -125,14 +125,14 @@
         }
       }
     },
-    "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\BusinessLayer\\BusinessLayer.csproj": {
+    "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\BusinessLayer\\BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\BusinessLayer\\BusinessLayer.csproj",
+        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\BusinessLayer\\BusinessLayer.csproj",
         "projectName": "BusinessLayer",
-        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\BusinessLayer\\BusinessLayer.csproj",
+        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\BusinessLayer\\BusinessLayer.csproj",
         "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\BusinessLayer\\obj\\",
+        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\BusinessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -152,8 +152,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj"
+              "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -230,14 +230,14 @@
         }
       }
     },
-    "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj": {
+    "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj",
+        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj",
         "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\obj\\",
+        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

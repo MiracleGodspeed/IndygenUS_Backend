@@ -107,7 +107,7 @@ namespace BusinessLayer.Services
                 {
                     var doesExist = await _context.USER.Where(x => x.Username == loginDto.UserName).FirstOrDefaultAsync();
                     if (doesExist != null)
-                        throw new Exception("user already exists");
+                        throw new NullReferenceException("user already exists");
                     Person person = new Person()
                     {
                         Surname = "-",
@@ -446,50 +446,32 @@ namespace BusinessLayer.Services
             }
             return plaintext;
         }
-        public async Task<int> ResetPassword(string Username)
-        {
-            try
-            {
-                var _username = Username.Trim();
-                var getUser = await _context.USER.Where(x => x.Username == _username.Trim()).FirstOrDefaultAsync();
-                if(getUser != null)
-                {                   
-                    string generateGuid = Convert.ToString(Guid.NewGuid());
-                    var splitGuid = generateGuid.Split("-");
-                    var guid = splitGuid[1];
-                    getUser.Guid = guid;
-                    _context.Update(getUser);
-                    await _context.SaveChangesAsync();
-                    return StatusCodes.Status200OK;
-                }
-                return 0;
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-
-        //public static IRestResponse SendSimpleMessage(string to, string body)
+        //public async Task<int> ResetPassword(string Username)
         //{
-        //    string _body = "Your Verification code is : " + body;
-        //    RestClient client = new RestClient();
-        //    client.BaseUrl = new Uri("https://api.mailgun.net/v3/");
-        //    client.Authenticator =
-        //        new HttpBasicAuthenticator("api", "key-8540f3ef6a66cdaf8d9121f11c99aa6b");
-        //    RestRequest request = new RestRequest();
-        //    request.AddParameter("domain", "nrf.lloydant.com", ParameterType.UrlSegment);
-        //    request.Resource = "{domain}/messages";
-        //    request.AddParameter("from", "ABSU Elearn NG <mailgun@absuelearn.com>");
-        //    request.AddParameter("to", to);
-        //    //request.AddParameter("to", "YOU@YOUR_DOMAIN_NAME");
-        //    request.AddParameter("subject", "Account Verification");
-        //    request.AddParameter("text", _body);
-        //    request.Method = Method.POST;
-        //    var stat = client.Execute(request);
-        //    return stat;
+        //    try
+        //    {
+        //        var _username = Username.Trim();
+        //        var getUser = await _context.USER.Where(x => x.Username == _username.Trim()).FirstOrDefaultAsync();
+        //        if(getUser != null)
+        //        {                   
+        //            string generateGuid = Convert.ToString(Guid.NewGuid());
+        //            var splitGuid = generateGuid.Split("-");
+        //            var guid = splitGuid[1];
+        //            getUser.Guid = guid;
+        //            _context.Update(getUser);
+        //            await _context.SaveChangesAsync();
+        //            return StatusCodes.Status200OK;
+        //        }
+        //        return 0;
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        throw ex;
+        //    }
         //}
+
+
+      
 
         public static IRestResponse IMailerGun(string to, string subject, string _body)
         {
@@ -620,6 +602,118 @@ namespace BusinessLayer.Services
             {
                 throw ex;
             }
+        }
+        public async Task<int> ResetPassword(string email)
+        {
+            try
+            {
+                var _email = email.Trim();
+                string generateGuid = Convert.ToString(Guid.NewGuid());
+                var splitGuid = generateGuid.Split("-");
+                var guid = splitGuid[1];
+                var getUser = await _context.USER.Where(d => d.Username == _email).Include(p => p.Person).FirstOrDefaultAsync();
+                if (getUser != null)
+                {
+                    Random generator = new Random();
+                    var otp = generator.Next(0, 1000000).ToString("D6");
+                    getUser.Guid = otp;
+                    getUser.IsVerified = false;
+                    _context.Update(getUser);
+                    await _context.SaveChangesAsync();
+                    SendSimpleMessage(email, "Password Reset", otp);
+                    return StatusCodes.Status200OK;
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<int> ConfirmResetPassword(string email, string code, string password)
+        {
+            try
+            {
+                var _email = email.Trim();
+                var _code = code.Trim();
+                var getUser = await _context.USER.Where(d => d.Username == _email && !d.IsVerified && d.Guid == _code).FirstOrDefaultAsync();
+
+                //if (!VerifyPasswordHash(dto.Password, user.PasswordHash, user.PasswordSalt))
+                if (getUser != null)
+                {
+                    Utility.CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
+                    getUser.IsVerified = true;
+                    getUser.Guid = null;
+                    getUser.PasswordHash = passwordHash;
+                    getUser.PasswordSalt = passwordSalt;
+                    _context.Update(getUser);
+                    await _context.SaveChangesAsync();
+                    return StatusCodes.Status200OK;
+                }
+                else
+                {
+                    throw new NullReferenceException("OTP provided is invalid. Try again");
+                }
+                //return 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<int> ChangePassword(ChangePasswordDto dto)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(dto.NewPassword))
+                {
+                    var user = await _context.USER
+                  .Include(r => r.Role)
+                  .Include(r => r.Person)
+                  .Where(f => f.Active && f.Id == dto.UserId).FirstOrDefaultAsync();
+                    if (user == null)
+                        throw new NullReferenceException("Error updating password");
+                    if (!VerifyPasswordHash(dto.OldPassword, user.PasswordHash, user.PasswordSalt))
+                        throw new NullReferenceException("Old password provided is not a match. Double check and try again.");
+                    Utility.CreatePasswordHash(dto.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+                    user.PasswordHash = passwordHash;
+                    user.PasswordSalt = passwordSalt;
+                    _context.Update(user);
+                    await _context.SaveChangesAsync();
+
+                }
+                return StatusCodes.Status200OK;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public static IRestResponse SendSimpleMessage(string to, string subject, string _guid)
+        {
+            //string _template = "APIs.Resources.emailTemplate.cshtml";
+            var currDirectory = Directory.GetCurrentDirectory();
+
+            RestClient client = new RestClient();
+            client.BaseUrl = new Uri("https://api.mailgun.net/v3/");
+            client.Authenticator =
+                new HttpBasicAuthenticator("api", "key-270ef6d7207a4da37f4bf1ecad5fc25b");
+
+
+            RestRequest request = new RestRequest();
+            request.AddParameter("domain", "byusforall.com", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "IndyGeneUs Health <mailgun@byusforall.com>");
+            request.AddParameter("to", to);
+            request.AddParameter("subject", subject);
+            request.AddParameter("template", "indygeneus");
+            request.AddParameter("v:confirmationCode", _guid);
+
+            request.Method = Method.POST;
+            var stat = client.Execute(request);
+            return stat;
         }
     }
 

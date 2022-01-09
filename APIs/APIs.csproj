@@ -42,5 +42,20 @@
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources\AssignmentSubmission\Godspeed_Miracle_POL111_130_202.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Assignment\POL111_rrevfcd_635_341.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\CourseContentNote\Fiscal Federalism_29_962_208.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\download.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
 </Project>

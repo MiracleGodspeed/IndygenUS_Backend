@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Interface;
 using DataLayer.Dtos;
 using DataLayer.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -180,6 +181,7 @@ namespace BusinessLayer.Services
 
                         questionDto.Question = questionStore.Name;
                         questionDto.SubCategoryId = questionStore.SurveySubCategoryId;
+                        questionDto.InputType = questionStore.InputType;
 
                         //Get Survey Question Options using the question ID
                         var questionOptions = await _context.SURVEY_QUESTION_OPTIONS.Where(x => x.Active && x.SurveyQuestionsId == questionStore.Id).OrderBy(x => x.Name).ToListAsync();
@@ -560,7 +562,51 @@ namespace BusinessLayer.Services
                 .ToListAsync();
         }
 
-       
+       public async Task<int> PostSurveyQuestion(SurveyQuestionDto dto, string userId)
+        {
+            try
+            {
+                //var validateUserRole = ValidateAdmin(userId);
+                //if (validateUserRole == null)
+                //    throw new NullReferenceException("unauthorized");
+                if (dto.SubCategoryId > 0)
+                {
+                    SurveyQuestions surveyQuestions = new SurveyQuestions()
+                    {
+                        Name = dto.Question,
+                        SurveySubCategoryId = dto.SubCategoryId,
+                        Active = true
+                    };
+
+                    _context.Add(surveyQuestions);
+                    await _context.SaveChangesAsync();
+                }
+                return StatusCodes.Status200OK;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<IEnumerable<SurveyQuestionDto>> GetSurveyQuestions()
+        {
+            return await _context.SURVEY_QUESTIONS.Where(x => x.Active)
+                .Include(x => x.SurveySubCategory)
+                .Select(f => new SurveyQuestionDto{
+                    Question = f.Name,
+                    SubCategoryName = f.SurveySubCategory.Name
+                })
+                .ToListAsync();
+        }
+
+        public async Task<bool> ValidateAdmin(string userId)
+        {
+            var validateUserRole = await _context.USER.Where(x => x.Id == userId && x.Active && x.RoleId == (int)IndyKeys.AdminKey).FirstOrDefaultAsync();
+            if (validateUserRole != null) return true;
+            else return false;
+        }
 
     }
 }

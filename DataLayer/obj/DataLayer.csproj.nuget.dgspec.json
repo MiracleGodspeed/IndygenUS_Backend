@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj": {}
+    "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj": {}
   },
   "projects": {
-    "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj": {
+    "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\DataLayer.csproj",
+        "projectPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\DataLayer.csproj",
         "packagesPath": "C:\\Users\\root\\.nuget\\packages\\",
-        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\__INDE_BACK__\\IndygenUS_Backend\\DataLayer\\obj\\",
+        "outputPath": "Z:\\Users\\godspeedmiracle\\Miracle\\WebEnd\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
