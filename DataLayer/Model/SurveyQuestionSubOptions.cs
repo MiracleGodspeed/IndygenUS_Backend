@@ -11,6 +11,21 @@ namespace DataLayer.Model
         public string Name { get; set; }
         public SurveyQuestionOptions SurveyQuestionOptions { get; set; }
         public int SurveyQuestionOptionsId { get; set; }
+        public string InputType { get; set; }
+        public long? SkipTo { get; set; }
+        public bool Active { get; set; }
+    }
+
+
+
+
+    public class SurveyQuestionSubOptionsPayload
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public int SurveyQuestionOptionsId { get; set; }
+        public string InputType { get; set; }
+        public long? SkipTo { get; set; }
         public bool Active { get; set; }
     }
 }

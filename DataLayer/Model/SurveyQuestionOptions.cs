@@ -12,6 +12,7 @@ namespace DataLayer.Model
         public string Name { get; set; }
         public SurveyQuestions SurveyQuestions { get; set; }
         public int SurveyQuestionsId { get; set; }
+        public string InputType { get; set; }
         public bool Active { get; set; }
     }
 }

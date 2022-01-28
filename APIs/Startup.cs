@@ -120,7 +120,7 @@ namespace APIs
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //UpdateDatabase(app);
+           UpdateDatabase(app);
 
             //to serve static files
 

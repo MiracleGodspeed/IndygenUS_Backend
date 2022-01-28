@@ -12,6 +12,9 @@ namespace DataLayer.Model
         public SurveySubCategory SurveySubCategory { get; set; }
         public long SurveySubCategoryId { get; set; }
         public string InputType { get; set; }
+        public int? Layer { get; set; }
         public bool Active { get; set; }
+        public long QuestionOrder { get; set; }
+
     }
 }

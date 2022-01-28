@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interface;
 using DataLayer.Dtos;
+using DataLayer.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -62,5 +63,33 @@ namespace APIs.Controllers
         public async Task<int> PostSurveyQuestion(SurveyQuestionDto dto, string userId) => await _service.PostSurveyQuestion(dto, userId);
         [HttpGet("FetchSurveyQuestions")]
         public async Task<IEnumerable<SurveyQuestionDto>> GetSurveyQuestions() => await _service.GetSurveyQuestions();
+        [HttpPost("[action]")]
+        public async Task<SurveyQuestionDto> GetSurveyQuestionDetailsBySubCategoryAndQuestionOrder(List<long> subOptionIds, long subCategoryId, long questionOrder, string userId, bool isFirst, bool isPrev) => await _service.GetSurveyQuestionDetailsBySubCategoryAndQuestionOrder(subOptionIds, subCategoryId, questionOrder, userId, isFirst, isPrev);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<BaseDto>> GetUserSurveyEntriesAlt(long surveySubCategoryId, string userId, long questionId) => await _service.GetUserSurveyEntriesAlt(surveySubCategoryId, userId, questionId);
+        [HttpPost("[action]")]
+        public async Task<bool> AddSurveyQuestions(string question, long subCatId, bool active, int? layer, string inputType, long questionOrder) => await _service.AddSurveyQuestions(question, subCatId, active, layer, inputType, questionOrder);
+        [HttpPost("[action]")]
+        public async Task<bool> EditSurveyQuestions(string question, long subCatId, int? layer, string inputType, long questionOrder, long questionId) => await _service.EditSurveyQuestions(question, subCatId, layer, inputType, questionOrder, questionId);
+        [HttpPost("[action]")]
+        public async Task<bool> DeleteDeactivateSurveyQuestion(long questionId, bool isDelete, bool isActive) => await _service.DeleteDeactivateSurveyQuestion(questionId, isDelete, isActive);
+        [HttpPost("[action]")]
+        public async Task<bool> AddSurveyQuestionOptions(string name, int questionId, bool active, string inputType) => await _service.AddSurveyQuestionOptions(name, questionId, active, inputType);
+        [HttpPost("[action]")]
+        public async Task<bool> EditSurveyQuestionOptions(long questionOptionId, SurveyQuestionOptions dto) => await _service.EditSurveyQuestionOptions(questionOptionId, dto);
+        [HttpPost("[action]")]
+        public async Task<bool> DeleteDeactivateSurveyQuestionOption(long questionOptionId, bool isDelete, bool isActive) => await _service.DeleteDeactivateSurveyQuestionOption(questionOptionId, isDelete, isActive);
+        [HttpPost("[action]")]
+        public async Task<bool> AddSurveySubOptions(SurveyQuestionSubOptions dto) => await _service.AddSurveySubOptions(dto);
+        [HttpPost("[action]")]
+        public async Task<bool> EditSurveySubOptions(long subOptionId, SurveyQuestionSubOptionsPayload dto) => await _service.EditSurveySubOptions(subOptionId, dto);
+        [HttpPost("[action]")]
+        public async Task<bool> DeleteDeactivateSurveySubOption(long subOptionId, bool isDelete, bool isActive) => await _service.DeleteDeactivateSurveySubOption(subOptionId, isDelete, isActive);
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<UserReportLinks>> GetEntryLinks(long subCategoryId) => await _service.GetEntryLinks(subCategoryId);
+        [HttpPost("[action]")]
+        public async Task<bool> AddSurveyLinks(UserReportLinks dto) => await _service.AddSurveyLinks(dto);
+        [HttpPost("[action]")]
+        public async Task<bool> DeleteDeactivateSurveyResultLinks(long linkId, bool isDelete, bool isActive) => await _service.DeleteDeactivateSurveyResultLinks(linkId, isDelete, isActive);
     }
 }

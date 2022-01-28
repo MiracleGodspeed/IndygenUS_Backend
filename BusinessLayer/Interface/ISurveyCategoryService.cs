@@ -1,4 +1,5 @@
 ﻿using DataLayer.Dtos;
+using DataLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,5 +26,19 @@ namespace BusinessLayer.Interface
        Task<IEnumerable<BaseDto>> GetUserSurveyOptionEntries(long surveySubCategoryId, string userId);
        Task<int> PostSurveyQuestion(SurveyQuestionDto dto, string userId);
        Task<IEnumerable<SurveyQuestionDto>> GetSurveyQuestions();
+        Task<SurveyQuestionDto> GetSurveyQuestionDetailsBySubCategoryAndQuestionOrder(List<long> subOptionIds, long subCategoryId, long questionOrder, string userId, bool isFirst, bool isPrev);
+      Task<IEnumerable<BaseDto>> GetUserSurveyEntriesAlt(long surveySubCategoryId, string userId, long questionId);
+       Task<bool> AddSurveyQuestions(string question, long subCatId, bool active, int? layer, string inputType, long questionOrder);
+       Task<bool> EditSurveyQuestions(string question, long subCatId, int? layer, string inputType, long questionOrder, long questionId);
+       Task<bool> DeleteDeactivateSurveyQuestion(long questionId, bool isDelete, bool isActive);
+       Task<bool> AddSurveyQuestionOptions(string name, int questionId, bool active, string inputType);
+        Task<bool> EditSurveyQuestionOptions(long questionOptionId, SurveyQuestionOptions dto);
+        Task<bool> DeleteDeactivateSurveyQuestionOption(long questionOptionId, bool isDelete, bool isActive);
+        Task<bool> AddSurveySubOptions(SurveyQuestionSubOptions dto);
+        Task<bool> EditSurveySubOptions(long subOptionId, SurveyQuestionSubOptionsPayload dto);
+        Task<bool> DeleteDeactivateSurveySubOption(long subOptionId, bool isDelete, bool isActive);
+        Task<IEnumerable<UserReportLinks>> GetEntryLinks(long subCategoryId);
+        Task<bool> AddSurveyLinks(UserReportLinks dto);
+        Task<bool> DeleteDeactivateSurveyResultLinks(long linkId, bool isDelete, bool isActive);
     }
 }

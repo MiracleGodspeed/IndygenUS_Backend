@@ -43,6 +43,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="UserDetails.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Resources\AssignmentSubmission\Godspeed_Miracle_POL111_130_202.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
